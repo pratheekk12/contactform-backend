@@ -5,7 +5,21 @@ require("dotenv").config();
 const app = express()                 
 const port = 3056
 
-app.use(express.json())
+app.use(express.json(),cors())
+
+// app.use(cors());
+
+// var whitelist = ['http://localhost:3001']
+// var corsOptions = {
+//   origin: function (origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true)
+//     } else {
+//       callback(new Error('Not allowed by CORS'))
+//     }
+//   }
+// }
+
 
 
 const transporter = nodemailer.createTransport({
@@ -25,7 +39,7 @@ transporter.verify(function(error, success) {
     }
   });
 
-  app.post('/send', (req, res, next) => {
+  app.post('/api/send', (req, res, next) => {
     var name = req.body.name
     var email = req.body.email
     var subject = req.body.subject
@@ -33,7 +47,7 @@ transporter.verify(function(error, success) {
   
     var mail = {
       from: email,
-      to: "pratheek.prathee@gmail.com",
+      to: "Info.codegallery@gmail.com",
       subject: subject,
       text: message
     }
